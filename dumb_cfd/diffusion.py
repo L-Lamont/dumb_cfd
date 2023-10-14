@@ -1,5 +1,4 @@
 
 
-class Diffusion(object):
-    def __init__(self):
-        raise NotImplementedError
+def diffusion():
+    raise NotImplementedError

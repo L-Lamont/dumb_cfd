@@ -1,5 +1,4 @@
 
 
-class Convection(object):
-    def __init__(self):
-        raise NotImplementedError
+def convection():
+    raise NotImplementedError

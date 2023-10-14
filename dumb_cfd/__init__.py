@@ -1,5 +1,5 @@
-from .convection import Convection
-from .diffusion import Diffusion
-from .burgers import Burgers
+from .convection import convection
+from .diffusion import diffusion
+from .burgers import burgers
 
-__all__ = ['Convection', 'Diffusion', 'Burgers']
+__all__ = ['convection', 'diffusion', 'burgers']
