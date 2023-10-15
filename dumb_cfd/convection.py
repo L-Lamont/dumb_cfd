@@ -5,9 +5,9 @@ def convection(
             initial_state: np.ndarray,
             num_timesteps: int,
             timestep_size: float,
-            step_length: np.ndarray,
+            step_length: tuple,
             periodic: bool = False,
-            speed: np.ndarray = None,
+            speed: tuple = None,
             constant_boundary_value: float = 0.0
         ) -> np.ndarray:
     """
@@ -23,14 +23,14 @@ def convection(
         The number of time steps to simulate.
     timestep_size : float
         The amount of time each time step represents.
-    step_length : np.ndarray
-        The spatial step length for each dimension.
+    step_length : tuple
+        Tuple containing the distance between grid points for each dimension.
     periodic : bool, optional
         A flag indicating whether the simulation uses periodic boundary
         conditions. If False, the boundary conditions are assumed to be fixed.
         Default is False.
-    speed : np.ndarray, optional
-        The constant convection speed for each dimension.
+    speed : tuple, optional
+        Tuple containing the constant convection speed for each dimension.
         Only used for linear convection
     constant_boundary_value: float, optional
         The constant value of the boundary. Used when periodic == False.
@@ -93,9 +93,9 @@ def convection_linear_1d(
             initial_state: np.ndarray,
             num_timesteps: int,
             timestep_size: float,
-            step_length: np.ndarray,
+            step_length: tuple,
             periodic: bool,
-            speed: np.ndarray,
+            speed: tuple,
             constant_boundary_value: float = 0.0
         ) -> np.ndarray:
     """
@@ -109,10 +109,10 @@ def convection_linear_1d(
         Number of timesteps to simulate.
     timestep_size : float
         The amount of simulated time each timestep represents.
-    step_length : float
-        Length 1 array the value representing the distance between grid points
-    speed : np.ndarray
-        Length 1 array the value representing the constant convection speed
+    step_length : tuple
+        Tuple containing the distance between grid points for each dimension.
+    speed : tuple
+        Tuple containing the constant convection speed for each dimension.
     periodic : bool
         If True, the wave is treated as periodic. If False, the wave is
         treated as bounded with a constant value of 0.
@@ -133,7 +133,7 @@ def convection_nonlinear_1d(
             initial_state: np.ndarray,
             num_timesteps: int,
             timestep_size: float,
-            step_length: np.ndarray,
+            step_length: tuple,
             periodic: bool
         ) -> np.ndarray:
     """
@@ -148,8 +148,8 @@ def convection_nonlinear_1d(
         Number of timesteps to simulate.
     timestep_size : float
         The amount of simulated time each timestep represents.
-    step_length : np.ndarray
-        Length 1 array the value representing the distance between grid points.
+    step_length : tuple
+        Tuple containing the distance between grid points for each dimension.
     periodic : bool
         If True, the domain is treated as periodic. If False, the domain is
         treated as bounded with a constant value of 0.
@@ -170,9 +170,9 @@ def convection_linear_2d(
             initial_state: np.ndarray,
             num_timesteps: int,
             timestep_size: float,
-            step_length: np.ndarray,
+            step_length: tuple,
             periodic: bool,
-            speed: np.ndarray,
+            speed: tuple,
             constant_boundary_value: float = 0.0
         ) -> np.ndarray:
     """
@@ -187,15 +187,13 @@ def convection_linear_2d(
         Number of timesteps to simulate.
     timestep_size : float
         The amount of simulated time each timestep represents.
-    step_length : np.ndarray
-        Length 2 array the values representing the distance between grid
-        points for each dimensions.
+    step_length : tuple
+        Tuple containing the distance between grid points for each dimension.
     periodic : bool
         If True, the domain is treated as periodic. If False, the domain is
         treated as bounded with a constant value of 0. Defaults to False.
-    speed : np.ndarray
-        Length 2 array the values representing the constant convection speed
-        for each dimensions.
+    speed : tuple
+        Tuple containing the constant convection speed for each dimension.
     constant_boundary_value: float, optional
         The constant value of the boundary. Used when periodic == False.
         Default is 0.0
@@ -213,7 +211,7 @@ def convection_nonlinear_2d(
             initial_state: np.ndarray,
             num_timesteps: int,
             timestep_size: float,
-            step_length: np.ndarray,
+            step_length: tuple,
             periodic: bool,
             constant_boundary_value: float = 0.0
         ) -> np.ndarray:
@@ -229,9 +227,8 @@ def convection_nonlinear_2d(
         Number of timesteps to simulate.
     timestep_size : float
         The amount of simulated time each timestep represents.
-    step_length : np.ndarray
-        Length 2 array representing the distance between grid points for each
-        dimension.
+    step_length : tuple
+        Tuple containing the distance between grid points for each dimension.
     periodic : bool
         If True, the domain is treated as periodic. If False, the domain is
         treated as bounded with a constant value of 0.
