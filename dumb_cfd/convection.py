@@ -1,5 +1,7 @@
 import numpy as np
 
+from utils import update_boundary
+
 
 def convection(
             initial_state: np.ndarray,
@@ -42,9 +44,9 @@ def convection(
         A numpy array representing the state of the system at the end of the
         simulation. The array will have the same shape as `initial_state`.
     """
-    ndims = initial_state.ndims
+    ndim = initial_state.ndim
 
-    if ndims == 1 and speed:
+    if ndim == 1 and speed:
         return convection_linear_1d(
             initial_state=initial_state,
             num_timesteps=num_timesteps,
@@ -55,7 +57,7 @@ def convection(
             constant_boundary_value=constant_boundary_value
         )
 
-    if ndims == 1 and not speed:
+    if ndim == 1 and not speed:
         return convection_nonlinear_1d(
             initial_state=initial_state,
             num_timesteps=num_timesteps,
@@ -65,7 +67,7 @@ def convection(
             constant_boundary_value=constant_boundary_value
         )
 
-    if ndims == 2 and speed:
+    if ndim == 2 and speed:
         return convection_linear_2d(
             initial_state=initial_state,
             num_timesteps=num_timesteps,
@@ -76,7 +78,7 @@ def convection(
             constant_boundary_value=constant_boundary_value
         )
 
-    if ndims == 2 and not speed:
+    if ndim == 2 and not speed:
         return convection_nonlinear_2d(
             initial_state=initial_state,
             num_timesteps=num_timesteps,
@@ -126,7 +128,25 @@ def convection_linear_1d(
         A numpy array representing the state of the system at the end of the
         simulation. The array will have the same shape as `initial_state`.
     """
-    raise NotImplementedError
+
+    step_length_x, = step_length
+    speed_x, = speed
+    boundary_size = 1
+
+    state_n0 = np.pad(initial_state, (boundary_size, boundary_size))
+    state_n1 = state_n0.copy()
+
+    for _ in range(num_timesteps):
+        update_boundary(state_n1,
+                        boundary_size=boundary_size,
+                        periodic=periodic)
+        state_n0[:] = state_n1[:]
+
+        state_n1[1:-1] -= \
+            speed_x * timestep_size / step_length_x * \
+            (state_n0[1:-1] - state_n1[:-2])
+
+    return state_n0[boundary_size:-boundary_size]
 
 
 def convection_nonlinear_1d(
