@@ -7,7 +7,8 @@ def convection(
             timestep_size: float,
             step_length: np.ndarray,
             periodic: bool = False,
-            speed: np.ndarray = None
+            speed: np.ndarray = None,
+            constant_boundary_value: float = 0.0
         ) -> np.ndarray:
     """
     Computes convection equation for domain and given parameters
@@ -31,6 +32,9 @@ def convection(
     speed : np.ndarray, optional
         The constant convection speed for each dimension.
         Only used for linear convection
+    constant_boundary_value: float, optional
+        The constant value of the boundary. Used when periodic == False.
+        Default is 0.0
 
     Returns
     -------
@@ -47,7 +51,8 @@ def convection(
             timestep_size=timestep_size,
             step_length=step_length,
             periodic=periodic,
-            speed=speed
+            speed=speed,
+            constant_boundary_value=constant_boundary_value
         )
 
     if ndims == 1 and not speed:
@@ -56,7 +61,8 @@ def convection(
             num_timesteps=num_timesteps,
             timestep_size=timestep_size,
             step_length=step_length,
-            periodic=periodic
+            periodic=periodic,
+            constant_boundary_value=constant_boundary_value
         )
 
     if ndims == 2 and speed:
@@ -66,7 +72,8 @@ def convection(
             timestep_size=timestep_size,
             step_length=step_length,
             periodic=periodic,
-            speed=speed
+            speed=speed,
+            constant_boundary_value=constant_boundary_value
         )
 
     if ndims == 2 and not speed:
@@ -75,7 +82,8 @@ def convection(
             num_timesteps=num_timesteps,
             timestep_size=timestep_size,
             step_length=step_length,
-            periodic=periodic
+            periodic=periodic,
+            constant_boundary_value=constant_boundary_value
         )
 
     raise RuntimeError("Arguments not set correctly please check docs")
@@ -87,7 +95,8 @@ def convection_linear_1d(
             timestep_size: float,
             step_length: np.ndarray,
             periodic: bool,
-            speed: np.ndarray
+            speed: np.ndarray,
+            constant_boundary_value: float = 0.0
         ) -> np.ndarray:
     """
     Computes linear convection equation for the 1D domain and given parameters
@@ -107,6 +116,9 @@ def convection_linear_1d(
     periodic : bool
         If True, the wave is treated as periodic. If False, the wave is
         treated as bounded with a constant value of 0.
+    constant_boundary_value: float, optional
+        The constant value of the boundary. Used when periodic == False.
+        Default is 0.0
 
     Returns
     -------
@@ -141,6 +153,9 @@ def convection_nonlinear_1d(
     periodic : bool
         If True, the domain is treated as periodic. If False, the domain is
         treated as bounded with a constant value of 0.
+    constant_boundary_value: float, optional
+        The constant value of the boundary. Used when periodic == False.
+        Default is 0.0
 
     Returns
     -------
@@ -157,7 +172,8 @@ def convection_linear_2d(
             timestep_size: float,
             step_length: np.ndarray,
             periodic: bool,
-            speed: np.ndarray
+            speed: np.ndarray,
+            constant_boundary_value: float = 0.0
         ) -> np.ndarray:
     """
     Computes linear convection equation for a 2D domain with the given
@@ -180,6 +196,9 @@ def convection_linear_2d(
     speed : np.ndarray
         Length 2 array the values representing the constant convection speed
         for each dimensions.
+    constant_boundary_value: float, optional
+        The constant value of the boundary. Used when periodic == False.
+        Default is 0.0
 
     Returns
     -------
@@ -195,7 +214,8 @@ def convection_nonlinear_2d(
             num_timesteps: int,
             timestep_size: float,
             step_length: np.ndarray,
-            periodic: bool
+            periodic: bool,
+            constant_boundary_value: float = 0.0
         ) -> np.ndarray:
     """
     Computes nonlinear convection equation for a 2D domain with the given
@@ -215,6 +235,9 @@ def convection_nonlinear_2d(
     periodic : bool
         If True, the domain is treated as periodic. If False, the domain is
         treated as bounded with a constant value of 0.
+    constant_boundary_value: float, optional
+        The constant value of the boundary. Used when periodic == False.
+        Default is 0.0
 
     Returns
     -------
