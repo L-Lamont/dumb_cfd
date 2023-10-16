@@ -118,7 +118,7 @@ def periodic_1d(
 
     for i in range(boundary_size):
         working_array[i] = working_array[i - 2 * boundary_size]
-        working_array[-(i + 1)] = working_array[2 * boundary_size - (i + 1):]
+        working_array[-(i + 1)] = working_array[2 * boundary_size - (i + 1)]
 
 
 def periodic_2d(
