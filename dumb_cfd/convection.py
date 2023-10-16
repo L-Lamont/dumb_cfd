@@ -44,6 +44,7 @@ def convection(
         A numpy array representing the state of the system at the end of the
         simulation. The array will have the same shape as `initial_state`.
     """
+
     ndim = initial_state.ndim
 
     if ndim == 1 and speed:
@@ -298,6 +299,7 @@ def convection_nonlinear_2d(
         simulation. The array will have the same shape as `initial_state`.
         Only state_u will be returned state_v will be discarded
     """
+
     step_length_x, step_length_y = step_length
     boundary_size = 1
 
