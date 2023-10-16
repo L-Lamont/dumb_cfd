@@ -133,20 +133,18 @@ def convection_linear_1d(
     speed_x, = speed
     boundary_size = 1
 
-    state_n0 = np.pad(initial_state, (boundary_size, boundary_size))
-    state_n1 = state_n0.copy()
+    state = np.pad(initial_state, (boundary_size, boundary_size))
 
     for _ in range(num_timesteps):
-        update_boundary(state_n1,
+        update_boundary(state,
                         boundary_size=boundary_size,
                         periodic=periodic)
-        state_n0[:] = state_n1[:]
 
-        state_n1[1:-1] -= \
+        state[1:-1] -= \
             speed_x * timestep_size / step_length_x * \
-            (state_n0[1:-1] - state_n1[:-2])
+            (state[1:-1] - state[:-2])
 
-    return state_n0[boundary_size:-boundary_size]
+    return state[boundary_size:-boundary_size]
 
 
 def convection_nonlinear_1d(
