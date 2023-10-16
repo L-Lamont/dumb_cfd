@@ -253,13 +253,13 @@ def convection_linear_2d(
                         periodic=periodic,
                         constant_boundary_value=constant_boundary_value)
 
-        state[1:-1] -= \
+        state[1:-1, 1:-1] -= \
             speed_x * timestep_size / step_length_x * \
             (state[1:-1, 1:-1] - state[:-2, 1:-1]) - \
             speed_y * timestep_size / step_length_y * \
             (state[1:-1, 1:-1] - state[1:-1, :-2])
 
-    return state[boundary_size:-boundary_size]
+    return state[boundary_size:-boundary_size, boundary_size:-boundary_size]
 
 
 def convection_nonlinear_2d(
