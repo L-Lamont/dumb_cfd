@@ -297,4 +297,32 @@ def convection_nonlinear_2d(
         A numpy array representing the state of the system at the end of the
         simulation. The array will have the same shape as `initial_state`.
     """
-    raise NotImplementedError
+    step_length_x, step_length_y = step_length
+    boundary_size = 1
+
+    state_u = np.pad(initial_state, (boundary_size, boundary_size))
+    state_v = np.pad(initial_state, (boundary_size, boundary_size))
+
+    for _ in range(num_timesteps):
+        update_boundary(state_u,
+                        boundary_size=boundary_size,
+                        periodic=periodic,
+                        constant_boundary_value=constant_boundary_value)
+        update_boundary(state_v,
+                        boundary_size=boundary_size,
+                        periodic=periodic,
+                        constant_boundary_value=constant_boundary_value)
+
+        state_u[1:-1, 1:-1] -= \
+            state_u[1:-1, 1:-1] * timestep_size / step_length_x * \
+            (state_u[1:-1, 1:-1] - state_u[:-2, 1:-1]) - \
+            state_v[1:-1, 1:-1] * timestep_size / step_length_y * \
+            (state_u[1:-1, 1:-1] - state_u[1:-1, :-2])
+
+        state_u[1:-1, 1:-1] -= \
+            state_u[1:-1, 1:-1] * timestep_size / step_length_x * \
+            (state_v[1:-1, 1:-1] - state_v[:-2, 1:-1]) - \
+            state_v[1:-1, 1:-1] * timestep_size / step_length_y * \
+            (state_v[1:-1, 1:-1] - state_v[1:-1, :-2])
+
+    return state_u[boundary_size:-boundary_size, boundary_size:-boundary_size]
