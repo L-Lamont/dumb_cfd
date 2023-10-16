@@ -296,6 +296,7 @@ def convection_nonlinear_2d(
     np.ndarray
         A numpy array representing the state of the system at the end of the
         simulation. The array will have the same shape as `initial_state`.
+        Only state_u will be returned state_v will be discarded
     """
     step_length_x, step_length_y = step_length
     boundary_size = 1
@@ -319,10 +320,11 @@ def convection_nonlinear_2d(
             state_v[1:-1, 1:-1] * timestep_size / step_length_y *
             (state_u[1:-1, 1:-1] - state_u[1:-1, :-2]))
 
-        state_u[1:-1, 1:-1] -= (
+        state_v[1:-1, 1:-1] -= (
             state_u[1:-1, 1:-1] * timestep_size / step_length_x *
             (state_v[1:-1, 1:-1] - state_v[:-2, 1:-1]) -
             state_v[1:-1, 1:-1] * timestep_size / step_length_y *
             (state_v[1:-1, 1:-1] - state_v[1:-1, :-2]))
 
+    # state_v is discarded
     return state_u[boundary_size:-boundary_size, boundary_size:-boundary_size]
