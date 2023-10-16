@@ -138,7 +138,8 @@ def convection_linear_1d(
     for _ in range(num_timesteps):
         update_boundary(state,
                         boundary_size=boundary_size,
-                        periodic=periodic)
+                        periodic=periodic,
+                        constant_boundary_value=constant_boundary_value)
 
         state[1:-1] -= \
             speed_x * timestep_size / step_length_x * \
@@ -152,7 +153,8 @@ def convection_nonlinear_1d(
             num_timesteps: int,
             timestep_size: float,
             step_length: tuple,
-            periodic: bool
+            periodic: bool,
+            constant_boundary_value: float = 0.0
         ) -> np.ndarray:
     """
     Computes nonlinear convection equation for a 1D domain with the given
